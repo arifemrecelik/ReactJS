@@ -8,18 +8,34 @@ class App extends Component {
 	}
 	
 	increment = () => {
-		state.counter++;
+		//console.log("Worked");
+		this.setState({
+			counter: this.state.counter + 1
+		});
+	}
+
+	decrement = () => {
+		this.setState({
+			counter: this.state.counter - 1
+		})
 	}
 
 	render() {
+		const myStyle = {
+			backgroundColor: 'yellow'
+		}
+		
 		return (
 			<div className="App">
 				<h1>Hi I'm a React App</h1>
 				<p>This is really working</p>
 				<p>{this.state.counter}</p>
-				<button onClick={this.increment}></button>
+				<button 
+					style={myStyle}
+					onClick={this.increment}> + </button>
+				<button onClick={this.decrement}> - </button>
 				<Person name="Arif Emre" age="24"/>
-				<Person name="Eren" age="17"></Person>
+				<Person name="Eren" age="17">Test</Person>
 			</div>
 		);
 
