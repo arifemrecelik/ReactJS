@@ -4,7 +4,12 @@ import Person from './Person/Person';
 
 class App extends Component {
 	state = {
-		counter : 0
+		counter : 0,
+		persons : [
+			{name: "Arif Emre", age: 24},
+			{name: "Eren", age: 17},
+		],
+		showAll : true
 	}
 	
 	increment = () => {
@@ -20,22 +25,51 @@ class App extends Component {
 		})
 	}
 
+	showHide = () => {
+		const temp = this.state.showAll;
+		this.setState({showAll: !temp});
+	}
+
+	deletePerson = (personIndex) {
+		const persons = this.state.persons.slice();
+		persons.splice(personIndex, 1);
+		this.setState({persons: persons});
+	}
+
 	render() {
 		const myStyle = {
 			backgroundColor: 'yellow'
 		}
+
+		let persons = null
+
+		if(this.state.showAll) {
+			persons = (
+				<div>
+					<h1>Hi I'm a React App</h1>
+					<p>This is really working</p>
+					<p>{this.state.counter}</p>							
+					<button 
+						style={myStyle}
+						onClick={this.increment}> + </button>
+					<button onClick={this.decrement}> - </button>							
+					
+					{this.state.persons.map(person => {
+						return <Person 
+							name={person.name}
+							age={person.age} />
+					})}
+
+					{/* <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+					<Person name={this.state.persons[1].name} age={this.state.persons[1].age}/> */}
+				</div> 
+			)
+		}
 		
 		return (
 			<div className="App">
-				<h1>Hi I'm a React App</h1>
-				<p>This is really working</p>
-				<p>{this.state.counter}</p>
-				<button 
-					style={myStyle}
-					onClick={this.increment}> + </button>
-				<button onClick={this.decrement}> - </button>
-				<Person name="Arif Emre" age="24"/>
-				<Person name="Eren" age="17">Test</Person>
+				<button onClick={this.showHide}>SHOW / HIDE</button>
+				{persons}
 			</div>
 		);
 
